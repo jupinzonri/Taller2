@@ -74,6 +74,24 @@ def generar_voronoi_ciudad():
     ax.set_ylabel("Coordenada Espacial Y")
     plt.grid(True, linestyle='--', alpha=0.5)
     plt.show()
+    
+# 1. Ejecutar y visualizar un resumen de la simulación de enfermedad
+historial = simular_difusion_enfermedad(ciclos=10, tamano=20)
+estado_final = historial[-1]
+sanos = np.sum(estado_final == 0)
+contagiados = np.sum(estado_final == 1)
+recuperados = np.sum(estado_final == 2)
 
-# Para ejecutar la visualización localmente, puedes llamar a la función:
-# generar_voronoi_ciudad()
+print("=== SIMULACIÓN DE ENFERMEDAD (Estado Final) ===")
+print(f"Sanos: {sanos} | Contagiados: {contagiados} | Recuperados: {recuperados}\n")
+
+# 2. Probar la regla de evasión del robot
+# Ejemplo: Obstáculo crítico al frente (0), izquierda libre (2), derecha libre (2)
+accion = regla_evasion_robot(sensor_izq=2, sensor_centro=0, sensor_der=2)
+print("=== PRUEBA DE ROBOT ===")
+print(f"Sensores: [Izq: Libre, Centro: Crítico, Der: Libre]")
+print(f"Acción de motores (Motor Izq, Motor Der): {accion}\n")
+
+# 3. Ejecutar y mostrar el Diagrama de Voronoi
+print("=== GENERANDO DIAGRAMA DE VORONOI ===")
+generar_voronoi_ciudad()
